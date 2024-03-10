@@ -1,0 +1,83 @@
+object FrmMain: TFrmMain
+  Left = 0
+  Top = 0
+  Caption = 'Monitor'
+  ClientHeight = 480
+  ClientWidth = 640
+  Fill.Color = claGold
+  Fill.Kind = Solid
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  DesignerMasterStyle = 0
+  object Rectangle1: TRectangle
+    Align = Client
+    Fill.Color = claDarkblue
+    Size.Width = 640.000000000000000000
+    Size.Height = 286.000000000000000000
+    Size.PlatformDefault = False
+    object LabelSenha: TLabel
+      Align = Client
+      StyledSettings = []
+      Size.Width = 640.000000000000000000
+      Size.Height = 286.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Courier New'
+      TextSettings.Font.Size = 120.000000000000000000
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claGold
+      TextSettings.HorzAlign = Center
+      Text = '0'
+      TabOrder = 0
+    end
+  end
+  object Label1: TLabel
+    Align = Top
+    StyledSettings = [Family]
+    Size.Width = 640.000000000000000000
+    Size.Height = 194.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 72.000000000000000000
+    TextSettings.Font.StyleExt = {00070000000000000004000000}
+    TextSettings.FontColor = claDarkblue
+    TextSettings.HorzAlign = Center
+    Text = 'PR'#211'XIMA SENHA'
+    TabOrder = 0
+  end
+  object MediaPlayer1: TMediaPlayer
+    Left = 64
+    Top = 394
+  end
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'Database=D:\Projetos Video\GuicheAtendimento\DB\GUICHE.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Port=3050'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 536
+    Top = 144
+  end
+  object QrySenha: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'select SEQUENCIA from MONITOR where DATA = :DATA'
+      '')
+    Left = 536
+    Top = 200
+    ParamData = <
+      item
+        Name = 'DATA'
+        ParamType = ptInput
+      end>
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'FMX'
+    Left = 536
+    Top = 264
+  end
+end

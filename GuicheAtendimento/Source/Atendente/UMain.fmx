@@ -1,0 +1,107 @@
+object FrmMain: TFrmMain
+  Left = 0
+  Top = 0
+  Caption = 'Atendente'
+  ClientHeight = 350
+  ClientWidth = 576
+  Fill.Kind = Solid
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnActivate = FormActivate
+  DesignerMasterStyle = 0
+  object Rectangle1: TRectangle
+    Align = Top
+    Fill.Color = claDarkblue
+    Size.Width = 576.000000000000000000
+    Size.Height = 185.000000000000000000
+    Size.PlatformDefault = False
+    object LabelSenha: TLabel
+      Align = Client
+      StyledSettings = [Family]
+      Size.Width = 576.000000000000000000
+      Size.Height = 185.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 72.000000000000000000
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claGold
+      TextSettings.HorzAlign = Center
+      Text = '0'
+      TabOrder = 0
+    end
+  end
+  object Label1: TLabel
+    StyledSettings = [Family, Style, FontColor]
+    Position.X = 232.000000000000000000
+    Position.Y = 232.000000000000000000
+    TextSettings.Font.Size = 18.000000000000000000
+    Text = 'Pr'#243'xima Senha'
+    TabOrder = 4
+    object EdtProximaSenha: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 4
+      TextSettings.Font.Size = 20.000000000000000000
+      Position.X = -40.000000000000000000
+      Position.Y = 32.000000000000000000
+      Size.Width = 201.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      StyledSettings = [Family, Style, FontColor]
+      OnKeyDown = EdtProximaSenhaKeyDown
+    end
+  end
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'Database=D:\Projetos Video\GuicheAtendimento\DB\GUICHE.FDB'
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Port=3050'
+      'DriverID=FB')
+    Connected = True
+    LoginPrompt = False
+    Left = 40
+    Top = 192
+  end
+  object QryAtendente: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'update or insert into MONITOR (DATA, SEQUENCIA)'
+      'values (:DATA, :SEQUENCIA)'
+      'matching (DATA)'
+      'returning SEQUENCIA;')
+    Left = 128
+    Top = 192
+    ParamData = <
+      item
+        Name = 'DATA'
+        ParamType = ptInput
+      end
+      item
+        Name = 'SEQUENCIA'
+        ParamType = ptInput
+      end>
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'FMX'
+    Left = 40
+    Top = 248
+  end
+  object QrySequencia: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'select SEQUENCIA from MONITOR where DATA = :DATA')
+    Left = 136
+    Top = 256
+    ParamData = <
+      item
+        Name = 'DATA'
+        DataType = ftTimeStamp
+        ParamType = ptInput
+      end>
+    object QrySequenciaSEQUENCIA: TIntegerField
+      FieldName = 'SEQUENCIA'
+      Origin = 'SEQUENCIA'
+    end
+  end
+end

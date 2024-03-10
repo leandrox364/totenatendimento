@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5303FFD4-D130-4909-8ECA-6F6751EAD183}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Atendente\Atendente.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Monitor\Monitor.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Atendente">
+        <MSBuild Projects="Atendente\Atendente.dproj"/>
+    </Target>
+    <Target Name="Atendente:Clean">
+        <MSBuild Projects="Atendente\Atendente.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Atendente:Make">
+        <MSBuild Projects="Atendente\Atendente.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Monitor">
+        <MSBuild Projects="Monitor\Monitor.dproj"/>
+    </Target>
+    <Target Name="Monitor:Clean">
+        <MSBuild Projects="Monitor\Monitor.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Monitor:Make">
+        <MSBuild Projects="Monitor\Monitor.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Atendente;Monitor"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Atendente:Clean;Monitor:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Atendente:Make;Monitor:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
